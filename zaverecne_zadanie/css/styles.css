@@ -1,0 +1,155 @@
+html {
+    font-family: "Montserrat", "Trebuchet MS", Helvetica, sans-serif
+}
+
+body{
+    background-color: #f4f4f4;
+}
+
+.navbar-custom {
+    min-height: 80px;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    font-size: 18px;
+    color: #6b6b6b;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    text-decoration: none;
+    margin-right: 1em;
+}
+
+.navbar-custom .nav-item:hover .nav-link {
+    color: mediumspringgreen;
+    border-bottom: 2px solid mediumspringgreen;
+}
+
+.navbar-custom .nav-item.active .nav-link {
+    color: black;
+    font-weight: 600;
+    border-bottom: 2px solid mediumspringgreen;
+}
+
+.language-flag{
+    border: 1px solid white;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.2);
+}
+
+.language-flag:hover{
+    box-shadow: 0 4px 6px -2px rgba(0, 250, 154, 0.4);
+}
+
+.container{
+    padding: 16px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 8px -6px rgba(0, 250, 154, 0.4);
+}
+
+.container-checkboxes{
+    padding: 16px;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    background-color: #ffffff;
+    box-shadow: 2px 3px 5px -4px rgba(0, 250, 154, 0.4);
+}
+
+#response{
+    color: #6b6b6b;
+    font-family: "Roboto", sans-serif;
+}
+
+.btn-custom{
+    background-color: mediumspringgreen;
+    color: #ffffff;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+.btn-custom:hover{
+    color: #ffffff;
+    box-shadow: 1px 3px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom:focus{
+    color: #ffffff;
+    box-shadow: 1px 1px 2px -2px rgba(0, 0, 0, 0.4);
+}
+
+.btn-custom-csv{
+    margin-top: 8px;
+    font-weight: 500;
+    color: mediumspringgreen;
+    background-color: #fbfbfb;
+    box-shadow: 1px 3px 5px -2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom-csv:hover{
+    color: mediumspringgreen;
+    box-shadow: 1px 7px 13px -4px rgba(0, 0, 0, 0.4);
+}
+
+.btn-custom-csv:focus{
+    color: rgba(229, 57, 53, 0.85);
+    background-color: #ffffff;
+    box-shadow: 1px 1px 3px -2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom-pdf{
+    margin-left: 8px;
+    margin-top: 8px;
+    font-weight: 500;
+    color: rgba(229, 57, 53, 0.85);
+    background-color: #fbfbfb;
+    box-shadow: 1px 3px 5px -2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom-pdf:hover{
+    color: rgba(229, 57, 53, 0.85);
+    box-shadow: 1px 7px 13px -4px rgba(0, 0, 0, 0.4);
+}
+
+.btn-custom-pdf:focus{
+    color: rgba(229, 57, 53, 0.85);
+    background-color: #ffffff;
+    box-shadow: 1px 1px 3px -2px rgba(0, 0, 0, 0.3);
+}
+
+
+.form-control:focus{
+    border-color: rgba(0, 250, 154, 0.80) !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(0, 250, 154, 0.70) !important;
+    outline: 0 none;
+}
+
+.subtext1{
+    color: #6b6b6b;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+}
+
+#container {
+    position: relative;
+}
+
+#export-options {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+}
+
+.margin-bottom{
+    margin-bottom: 50%;
+}
+
+.container-subpage{
+    margin: 0 auto;
+}
+
+.subpage-heading-1{
+    font-size: 3em;
+    font-weight: 500;
+    color: #4a4a4a;
+    margin-bottom: 24px;
+}
