@@ -18,7 +18,7 @@ require_once "languages/" . $_SESSION['lang'] . ".php";
 define("HOSTNAME", "localhost");
 define("USERNAME", "Keefko");
 define("PASSWORD", "17Dany9keefo");
-define("DBNAME", "zadanie6");
+define("DBNAME", "skuska");
 
 
 $link = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DBNAME);

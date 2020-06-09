@@ -11,19 +11,7 @@ include_once 'config.php';
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/styles.css" />
-        <script>
-            $(document).ready(function(){
-                $("#command").click(function () {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'https://wt132.fei.stuba.sk:4532/zaverecne_zadanie/restapi.php?action=command',
-                        success: function(msg){
 
-                        }
-                    })
-                });
-            });
-        </script>
     </head>
     <body>
         <!-- Navigation  -->
@@ -66,13 +54,29 @@ include_once 'config.php';
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <form method="get" class="margin-bottom">
+                    <div class="margin-bottom">
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1" class="subtext1"><?php echo $lang['entry'] ?></label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea class="form-control" name="command" id="command" rows="3"></textarea>
                         </div>
-                        <button type="submit" name="command" class="btn btn-custom"><?php echo $lang['submit'] ?></button>
-                    </form>
+                        <input type="submit" name="submit" id="submitBtn" class="btn btn-custom" value="<?php echo $lang['submit'] ?>">
+
+                        <script>
+                            $(document).ready(function(){
+                                $("#submitBtn").click(function () {
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=command&command=' + encodeURIComponent($('#command').val()),
+                                        success: function(msg){
+                                            $('#response').html(msg);
+                                        }
+                                    });
+                                });
+
+                            });
+                        </script>
+                    </div>
+
                     <div id="export-options">
                         <span class="subtext1"><?php echo $lang['command export'] ?></span>
                         <form method="post" action="export.php" id="export-options-form">
@@ -84,8 +88,7 @@ include_once 'config.php';
                 <div class="col">
                     <!-- Response from the TextArea-->
                     <span class="subtext1"><?php echo $lang['response'] ?></span>
-                    <p id="response">
-                        Lorem ipsum dol</p>
+                    <p id="response"></p>
                 </div>
             </div>
         </div>
