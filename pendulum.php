@@ -120,14 +120,13 @@ include_once 'config.php';
 function printGraph(data) {
     var ctx = document.getElementById('myChart').getContext('2d');
     var positions = [], angles = [], time = [];
-
+    console.log(data);
 
     $.each(data, function (key,value) {
         positions.push(value['position']);
         angles.push(value['angle']);
         time.push(key);
         setInterval(function () {
-            console.log(positions);
             update(myLineChart,time,positions,angles)
         }, 4000);
     });

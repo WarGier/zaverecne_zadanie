@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="718cadb6-1606-418a-8d42-367cc368ff73" name="Default Changelist" comment="" />
+    <list default="true" id="718cadb6-1606-418a-8d42-367cc368ff73" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pendulum.php" beforeDir="false" afterPath="$PROJECT_DIR$/pendulum.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,7 +15,11 @@
       <executable />
     </execution>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1crOzHFPi2LMcQbuz47Fq14dtRW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -38,7 +45,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1591283505394</updated>
-      <workItem from="1591283507416" duration="24192000" />
+      <workItem from="1591283507416" duration="24797000" />
     </task>
     <servers />
   </component>
@@ -54,6 +61,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591287879661" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1591694513485">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591694513485" />
     <state x="2765" y="250" key="ftp.server.browser" timestamp="1591283627869">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
