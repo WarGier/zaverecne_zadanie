@@ -11,6 +11,8 @@ if(!isset($_SESSION['lang'])){
     }
 }
 
+
+
 require_once "languages/" . $_SESSION['lang'] . ".php";
 
 define("HOSTNAME", "localhost");

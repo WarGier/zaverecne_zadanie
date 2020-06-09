@@ -2,11 +2,11 @@
 pkg load control
 arguments = argv();
 r= str2double(arguments{1});
+lastPos= str2double(arguments{2});
+lastAngle= str2double(arguments{3});
 
 
-
-
-function ret = kyvadlo(r)
+function ret = kyvadlo(r, lastPos, lastAngle)
 
 
 M = .5;
@@ -28,17 +28,14 @@ sys = ss(Ac,B*N,C,D);
 
 t = 0:0.05:10;
 
-initPozicia=0;
-initUhol=0;
+initPozicia=lastPos;
+initUhol=lastAngle;
 [y,t,x]=lsim(sys,r*ones(size(t)),t,[initPozicia;0;initUhol;0]);
 plot(t,y)
 
-r=0.5;
-[y,t,x]=lsim(sys,r*ones(size(t)),t,x(size(x,1),:));
-plot(t,y)
 
 ret = [x(:,1), x(:,3)];
 
 endfunction
 
-disp(kyvadlo(r));
+disp(kyvadlo(r,lastPos,lastAngle));

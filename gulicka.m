@@ -24,13 +24,8 @@ t = 0:0.01:5;
 
 initRychlost=0;
 initZrychlenie=0;
-[y,t,x]=lsim(N*sys,r*ones(size(t)),t,
-[initRychlost;0;initZrychlenie;0]);
+[y,t,x]=lsim(N*sys,r*ones(size(t)),t,[initRychlost;0;initZrychlenie;0]);
 plot(t,y)
-r =0.5;
-[y,t,x]=lsim(N*sys,r*ones(size(t)),t,x(size(x,1),:));
-plot(t,y)
-
 
 ret =[N*x(:,1), x(:,3)];
 

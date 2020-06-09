@@ -33,7 +33,7 @@ switch ($_GET['action']){
 
     case "pendulum" :
         include 'controllers/PendulumController.php';
-        $pendulumController = new PendulumController($_SERVER['REQUEST_METHOD'], $result, $link, $_GET['r']);
+        $pendulumController = new PendulumController($_SERVER['REQUEST_METHOD'], $result, $link, $_GET['r'],$_GET['pos'],$_GET['angle']);
         $output = $pendulumController->controller();
         echo json_encode($output);
         break;

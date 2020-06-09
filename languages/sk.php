@@ -12,5 +12,8 @@
         "response" => "Výstup: ",
         "chart" => "Graf",
         "animation" => "Animácia",
-        "information" => "Vyberte možnosť aby sa zobrazil výsledok."
+        "information" => "Vyberte možnosť aby sa zobrazil výsledok.",
+        "time" => "čas",
+        "angle" => "uhol",
+        "position" => "pozicia"
     );

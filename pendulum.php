@@ -10,20 +10,65 @@ include_once 'config.php';
     <title><?php echo $lang['title'] ." | ". $lang['pendulum']?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="css/styles.css"/>
-    <?php
-    if(isset($_POST['submit'])){
-    $r = $_POST['r'];
-    echo "<script>
-        $.ajax({
-            type: 'GET',
-            url: 'http://147.175.121.210:8204/skuska/restapi.php?action=pendulum&r=" .$r. "',
-            success: function (msg) {
-                printGraph(msg);
-            }
-        });
-    </script>";
-    } ?>
+
+    <script>
+        var lastPos = 0, lastAngle =0;
+
+        function printGraph(data) {
+            $(document).ready(function() {
+                var trace1 = {
+                    x: [],
+                    y: [],
+                    type: 'scatter',
+                    name: '<?php echo $lang['position']; ?>',
+                    mode: 'lines'
+                };
+
+                var trace2 = {
+                    x: [],
+                    y: [],
+                    type: 'scatter',
+                    name: '<?php echo $lang['angle']; ?>',
+                    mode: 'lines'
+                };
+                var newData = [trace1, trace2];
+                var config = {responsive: true};
+                var layout = {
+                    title: '<?php echo $lang['pendulum']; ?>',
+                    xaxis: {
+                        title: '<?php echo $lang['time']; ?>',
+                    },
+                    yaxis: {
+                        title: 'r',
+                        //range: [-1,1],
+                    }
+                };
+
+                Plotly.newPlot('myChart', newData, layout, config);
+                var count = 0;
+                var it = 0;
+                var interval = setInterval(function () {
+                    Plotly.extendTraces('myChart', {
+                        x: [[count], [count]],
+                        y: [[data[count]['position']], [data[count]['angle']]]
+                    }, [0, 1]);
+
+
+                    count++;
+                    if(count === data.length){
+                        clearInterval(interval);
+                    }
+                }, 50);
+             });
+
+            lastPos = data[data.length-1]['position'];
+            lastAngle = data[data.length-1]['angle'];
+        }
+
+    </script>
+
 </head>
 <body>
 <!-- Navigation  -->
@@ -82,13 +127,27 @@ include_once 'config.php';
                             <input type="checkbox" class="custom-control-input" id="animationCheckBox">
                             <label class="custom-control-label" for="animationCheckBox"><?php echo $lang['animation'] ?></label>
                         </div>
-                        <form method="POST" action="">
                             <div class="form-group mt-4">
                                 <label for="exampleFormControlTextarea1" class="subtext1"><?php echo $lang['entry'] ?></label>
-                                <input class="form-control" type="number" step="0.01" min="0" name="r" id="exampleFormControlTextarea1">
+                                <input class="form-control" type="number" step="0.01" min="0" name="r" id="r">
                             </div>
-                            <button type="submit" name="submit" class="btn btn-custom"><?php echo $lang['submit'] ?></button>
-                        </form>
+                            <button  id="button" type="submit" class="btn btn-custom"><?php echo $lang['submit'] ?></button>
+                            <script>
+                                $(document).ready(function(){
+                                    $("#button").click(function(){
+                                        var r = $("#r").val();
+                                        console.log(r);
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: 'http://147.175.121.210:8204/skuska/restapi.php?action=pendulum&pos=' + lastPos + '&angle='+ lastAngle + '&r=' + r,
+                                            success: function (msg) {
+                                                printGraph(msg);
+                                            }
+                                        });
+                                    });
+                                });
+
+                            </script>
                     </div>
                 </div>
             </div>
@@ -99,7 +158,7 @@ include_once 'config.php';
                     <div class="col text-center">
                         <span id="information" class="subtext1"><?php echo $lang['information'] ?></span>
                         <img id="myAnimation" src="img/united-kingdom-flag-small.png">
-                        <canvas id="myChart" width="400" height="200"></canvas>
+                        <div id="myChart" width="400" height="200"></div>
                     </div>
                 </div>
             </div>
@@ -107,73 +166,9 @@ include_once 'config.php';
     </div>
 </div>
 
-
-
-<!-- **********************SCRIPTS********************** /-->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </body>
 </html>
-
 <script>
-function printGraph(data) {
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var positions = [], angles = [], time = [];
-    console.log(data);
-
-    $.each(data, function (key,value) {
-        positions.push(value['position']);
-        angles.push(value['angle']);
-        time.push(key);
-        setInterval(function () {
-            update(myLineChart,time,positions,angles)
-        }, 4000);
-    });
-
-
-
-    function update(chart, label, position, angle) {
-        chart.data.labels.pop();
-        chart.data.labels.push(label);
-        chart.data.datasets[0].data = position;
-        chart.data.datasets[1].data = angle;
-        chart.update();
-    }
-
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: time,
-            datasets: [
-                {
-                   label: "Position",
-                   backgroundColor : ['rgba(35, 203, 167, 1)'],
-                   borderColor : ['rgba(35, 203, 167, 1)'],
-                   fill: false
-                },{
-                    label: "Angle",
-                    backgroundColor : ['rgba(30, 139, 195, 1)'],
-                    borderColor : ['rgba(30, 139, 195, 1)'],
-                    fill: false
-                }
-            ]
-        },
-        options: {
-            title : {
-                display : true,
-                position : "top",
-                text : "Kyvadlo graf",
-                fontSize : 18,
-                fontcolor: "#111"
-            },
-            legend : {
-                display : true,
-                position: "bottom"
-            }
-        }
-    });
-
     let animationCheckBox = document.querySelector("input[id=animationCheckBox]");
     $("#myAnimation").hide();
     animationCheckBox.addEventListener( 'change', function() {
@@ -206,5 +201,4 @@ function printGraph(data) {
             $("#information").hide();
         }
     }
-}
 </script>

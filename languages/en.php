@@ -12,5 +12,8 @@
         "response" => "Output: ",
         "chart" => "Chart",
         "animation" => "Animation",
-        "information" => "Choose an option to show result"
+        "information" => "Choose an option to show result",
+        "time" => "time",
+        "angle" => "angle",
+        "position" => "position"
     );
