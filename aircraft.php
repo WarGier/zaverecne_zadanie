@@ -10,7 +10,67 @@ include_once 'config.php';
     <title><?php echo $lang['title'] ." | ". $lang['aircraft']?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/styles.css"
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <script>
+        let lastPos = 0, lastAngle = 0;
+
+        function printGraph(data) {
+            $(document).ready(function() {
+                let trace1 = {
+                    x: [],
+                    y: [],
+                    type: 'scatter',
+                    name: '<?php echo $lang['planeAngle']; ?>',
+                    mode: 'lines'
+                };
+
+                let trace2 = {
+                    x: [],
+                    y: [],
+                    type: 'scatter',
+                    name: '<?php echo $lang['flapAngle']; ?>',
+                    mode: 'lines'
+                };
+                let newData = [trace1, trace2];
+                let config = {responsive: true};
+                let layout = {
+                    title: '<?php echo $lang['aircraft']; ?>',
+                    xaxis: {
+                        title: '<?php echo $lang['time']; ?>',
+                    },
+                    yaxis: {
+                        title: 'r',
+                        //range: [-1,1],
+                    }
+                };
+
+                Plotly.newPlot('myChart', newData, layout, config);
+                let count = 0;
+                let it = 0;
+                let interval = setInterval(function () {
+                    Plotly.extendTraces('myChart', {
+                        x: [[count], [count]],
+                        y: [[data[count]['planeAngle']], [data[count]['flapAngle']]]
+                    }, [0, 1]);
+
+
+                    count++;
+                    if(count === data.length){
+                        clearInterval(interval);
+                        $("#button").attr("disabled", false);
+                    }
+                }, 50);
+
+            });
+
+            lastPos = data[data.length-1]['planeAngle'];
+            lastAngle = data[data.length-1]['flapAngle'];
+            console.log(lastPos + " " + lastAngle);
+
+        }
+
+    </script>
 </head>
 <body>
 <!-- Navigation  -->
@@ -69,13 +129,27 @@ include_once 'config.php';
                             <input type="checkbox" class="custom-control-input" id="animationCheckBox">
                             <label class="custom-control-label" for="animationCheckBox"><?php echo $lang['animation'] ?></label>
                         </div>
-                        <form method="get" action="">
-                            <div class="form-group mt-4">
-                                <label for="exampleFormControlTextarea1" class="subtext1"><?php echo $lang['entry'] ?></label>
-                                <input class="form-control" type="number" min="0"  id="exampleFormControlTextarea1">
-                            </div>
-                            <button type="submit" class="btn btn-custom"><?php echo $lang['submit'] ?></button>
-                        </form>
+                        <div class="form-group mt-4">
+                            <label for="exampleFormControlTextarea1" class="subtext1"><?php echo $lang['entry'] ?></label>
+                            <input class="form-control" type="number" step="0.01" min="0" name="r" id="inputGraphData">
+                        </div>
+                        <button  id="button" type="submit" class="btn btn-custom"><?php echo $lang['submit'] ?></button>
+                        <script>
+                            $(document).ready(function(){
+                                $("#button").click(function(){
+                                    var r = $("#inputGraphData").val();
+                                    console.log(inputGraphData);
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=aircraft&plane_angle=' + lastPos + '&flap_angle=' + lastAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                        success: function (msg) {
+                                            $("#button").attr("disabled", true);
+                                            printGraph(msg);
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
@@ -86,66 +160,18 @@ include_once 'config.php';
                     <div class="col text-center">
                         <span id="information" class="subtext1"><?php echo $lang['information'] ?></span>
                         <img id="myAnimation" src="img/united-kingdom-flag-small.png">
-                        <canvas id="myChart" width="400" height="200"></canvas>
+                        <div id="myChart" width="400" height="200"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-<!-- **********************SCRIPTS********************** /-->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script
-    src="https://code.jquery.com/jquery-3.5.1.js"
-    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"></script>
 </body>
 </html>
 
 <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-    let animationCheckBox = document.querySelector("input[id=animationCheckBox]");
+     let animationCheckBox = document.querySelector("input[id=animationCheckBox]");
     $("#myAnimation").hide();
     animationCheckBox.addEventListener( 'change', function() {
         if(this.checked) {

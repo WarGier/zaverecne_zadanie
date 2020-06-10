@@ -11,6 +11,7 @@ include_once 'config.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.0.0-beta.12/fabric.min.js"></script>
     <link rel="stylesheet" href="css/styles.css"/>
 
     <script>
@@ -42,13 +43,11 @@ include_once 'config.php';
                     },
                     yaxis: {
                         title: 'r',
-                        //range: [-1,1],
                     }
                 };
 
                 Plotly.newPlot('myChart', newData, layout, config);
                 var count = 0;
-                var it = 0;
                 var interval = setInterval(function () {
                     Plotly.extendTraces('myChart', {
                         x: [[count], [count]],
@@ -67,6 +66,29 @@ include_once 'config.php';
             lastAngle = data[data.length-1]['angle'];
         }
 
+        function animatePendulum(data){
+            $(document).ready(function(){
+                var canvas = this.__canvas = new fabric.Canvas('c',{width: 800, height: 600});
+                var bottom =  new fabric.Rect({left: 225, top: 500, fill: 'grey', width : 200, height: 100});
+                var stick =  new fabric.Rect({left: 300, top: 300, fill: 'blue', width : 30, height: 200});
+                var pendulum =new fabric.Group([bottom,stick]);
+                canvas.add(pendulum);
+                var count = 0;
+                while(count  < data.length-1) {
+                    pendulum.animate('left', data[count]['position'], {
+                        onChange: canvas.renderAll.bind(canvas),
+                        duration: 4000,
+                    });
+                    var
+                    pendulum.getObjects()[1].animate('angle', ,{
+                        onChange: canvas.renderAll.bind(canvas),
+                        duration: 4000
+                    });
+                    count++;
+                }
+            });
+
+        }
     </script>
 
 </head>
@@ -96,6 +118,9 @@ include_once 'config.php';
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="api.php">API</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="statistics.php"><?php echo $lang['statistics'] ?></a>
             </li>
         </ul>
         <form method="get" class="form-inline my-2 my-lg-0 align-right">
@@ -136,17 +161,24 @@ include_once 'config.php';
                                 $(document).ready(function(){
                                     $("#button").click(function(){
                                         var r = $("#r").val();
-                                        console.log(r);
                                         $.ajax({
                                             type: 'GET',
-                                            url: 'http://147.175.121.210:8204/skuska/restapi.php?action=pendulum&pos=' + lastPos + '&angle='+ lastAngle + '&r=' + r,
+                                            url: 'http://147.175.121.210:8204/skuska/restapi.php?action=pendulum&pos=' + lastPos + '&angle='+ lastAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
                                             success: function (msg) {
                                                 printGraph(msg);
+                                                animatePendulum(msg);
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            type: 'PUT',
+                                            url: 'http://147.175.121.210:8204/skuska/restapi.php?action=pendulum&pos=' + lastPos + '&angle='+ lastAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                            success: function (msg) {
+
                                             }
                                         });
                                     });
                                 });
-
                             </script>
                     </div>
                 </div>
@@ -157,7 +189,7 @@ include_once 'config.php';
                 <div class="row">
                     <div class="col text-center">
                         <span id="information" class="subtext1"><?php echo $lang['information'] ?></span>
-                        <img id="myAnimation" src="img/united-kingdom-flag-small.png">
+                        <canvas id="c"></canvas>
                         <div id="myChart" width="400" height="200"></div>
                     </div>
                 </div>
@@ -168,16 +200,20 @@ include_once 'config.php';
 
 </body>
 </html>
+
+<!-- **********************SCRIPTS********************** /-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 <script>
     let animationCheckBox = document.querySelector("input[id=animationCheckBox]");
-    $("#myAnimation").hide();
+    $("#c").hide();
     animationCheckBox.addEventListener( 'change', function() {
         if(this.checked) {
 
-            $("#myAnimation").show();
+            $("#c").show();
             check();
         } else {
-            $("#myAnimation").hide();
+            $("#c").hide();
             check();
         }
     });

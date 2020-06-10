@@ -2,9 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="718cadb6-1606-418a-8d42-367cc368ff73" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/statistics.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aircraft.php" beforeDir="false" afterPath="$PROJECT_DIR$/aircraft.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ball.php" beforeDir="false" afterPath="$PROJECT_DIR$/ball.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/car.m" beforeDir="false" afterPath="$PROJECT_DIR$/car.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/AircraftController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AircraftController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/BallController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/BallController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/DampingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/DampingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/PendulumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PendulumController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/damping.php" beforeDir="false" afterPath="$PROJECT_DIR$/damping.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/export.php" beforeDir="false" afterPath="$PROJECT_DIR$/export.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulicka.m" beforeDir="false" afterPath="$PROJECT_DIR$/gulicka.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/en.php" beforeDir="false" afterPath="$PROJECT_DIR$/languages/en.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/sk.php" beforeDir="false" afterPath="$PROJECT_DIR$/languages/sk.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pendulum.php" beforeDir="false" afterPath="$PROJECT_DIR$/pendulum.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/restapi.php" beforeDir="false" afterPath="$PROJECT_DIR$/restapi.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +64,8 @@
       <option name="presentableId" value="Default" />
       <updated>1591283505394</updated>
       <workItem from="1591283507416" duration="24797000" />
-      <workItem from="1591694503762" duration="20906000" />
+      <workItem from="1591694503762" duration="35479000" />
+      <workItem from="1591786209074" duration="15856000" />
     </task>
     <servers />
   </component>
@@ -61,14 +78,19 @@
     </state>
     <state x="442" y="141" key="#Deployment/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591717110666" />
     <state x="2472" y="178" key="#Deployment/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591283629908" />
+    <state x="2639" y="323" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591798139375">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2639" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591798139375" />
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1591704957104">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591704957104" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1591694513485">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2501" y="298" key="com.intellij.ide.util.TipDialog" timestamp="1591786512529">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1591694513485" />
+    <state x="2501" y="298" key="com.intellij.ide.util.TipDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591786512529" />
     <state x="2765" y="250" key="ftp.server.browser" timestamp="1591283627869">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

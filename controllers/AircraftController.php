@@ -6,27 +6,32 @@ Class AircraftController{
     private $result;
     private $conn;
     private $r;
+    private $planeAngle;
+    private $flapAngle;
 
     /**
-     * BallController constructor.
+     * AircraftController constructor.
      * @param $request
      * @param $result
-     * @param $r
      * @param $conn
+     * @param $r
+     * @param $planeAngle
+     * @param $flapAngle
      */
-    public function __construct($request, $result, $conn, $r)
+    public function __construct($request, $result, $conn, $r, $planeAngle, $flapAngle)
     {
         $this->request = $request;
         $this->result = $result;
         $this->conn = $conn;
         $this->r = $r;
+        $this->planeAngle = $planeAngle;
+        $this->flapAngle = $flapAngle;
     }
 
     function controller(){
         switch ($this->getRequest()){
             case "GET":
-
-                $command = "octave --no-gui --silent  plane.m $this->r;";
+                $command = "octave --no-gui --silent  aircraft.m $this->r $this->planeAngle $this->flapAngle";
                 $output = shell_exec($command);
                 $output = trim($output);
                 $outputByLine = explode(PHP_EOL, $output);
@@ -43,15 +48,13 @@ Class AircraftController{
                 }
                 return $outputArray;
                 break;
-            case "POST":
-                $sql = "INSERT INTO ball";
-                break;
             case "PUT":
-                $sql = "UPDATE ball SET";
+                $sql = "UPDATE statistika SET count = count + 1 WHERE name= 'aircraft'";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
                 break;
-            case "DELETE":
-                $sql = "DELETE FROM ball";
                 break;
+
 
         }
     }

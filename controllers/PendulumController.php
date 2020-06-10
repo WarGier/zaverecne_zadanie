@@ -49,14 +49,10 @@ Class PendulumController{
                 }
                 return $outputArray;
                 break;
-            case "POST":
-                $sql = "INSERT INTO ball";
-                break;
             case "PUT":
-                $sql = "UPDATE ball SET";
-                break;
-            case "DELETE":
-                $sql = "DELETE FROM ball";
+                $sql = "UPDATE statistika SET count = count + 1 WHERE name= 'pendulum'";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
                 break;
 
         }

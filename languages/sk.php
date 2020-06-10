@@ -15,5 +15,10 @@
         "information" => "Vyberte možnosť aby sa zobrazil výsledok.",
         "time" => "čas",
         "angle" => "uhol",
-        "position" => "pozicia"
+        "position" => "pozicia",
+        "speed" => "rýchlosť",
+        "acceleration" => "zrýchlenie",
+        "planeAngle" => "náklon lietadla",
+        "flapAngle" => "náklon klapky",
+        'statistics' => "Štatistika"
     );

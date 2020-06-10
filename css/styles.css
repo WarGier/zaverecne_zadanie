@@ -91,7 +91,7 @@ body{
 }
 
 .btn-custom-csv:focus{
-    color: rgba(229, 57, 53, 0.85);
+    color: mediumspringgreen;
     background-color: #ffffff;
     box-shadow: 1px 1px 3px -2px rgba(0, 0, 0, 0.3);
 }

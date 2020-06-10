@@ -15,5 +15,10 @@
         "information" => "Choose an option to show result",
         "time" => "time",
         "angle" => "angle",
-        "position" => "position"
+        "position" => "position",
+        "speed" => "speed",
+        "acceleration" => "acceleration",
+        "planeAngle" => "plane angle",
+        "flapAngle" => "flap angle",
+        'statistics' => "Statistics"
     );

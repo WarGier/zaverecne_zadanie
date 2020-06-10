@@ -39,6 +39,9 @@ include_once 'config.php';
                     <li class="nav-item active">
                         <a class="nav-link" href="api.php">API</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="statistics.php"><?php echo $lang['statistics'] ?></a>
+                    </li>
                 </ul>
                 <form method="get" class="form-inline my-2 my-lg-0 align-right">
                     <?php if($_SESSION['lang'] == 'sk'): ?>

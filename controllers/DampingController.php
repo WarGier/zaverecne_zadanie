@@ -5,26 +5,30 @@ Class DampingController{
     private $result;
     private $conn;
     private $r;
+    private $lastPos;
+
 
     /**
-     * BallController constructor.
+     * DampingController constructor.
      * @param $request
      * @param $result
-     * @param $r
      * @param $conn
+     * @param $r
+     * @param $lastPos
      */
-    public function __construct($request, $result, $conn, $r)
+    public function __construct($request, $result, $conn, $r, $lastPos)
     {
         $this->request = $request;
         $this->result = $result;
         $this->conn = $conn;
         $this->r = $r;
+        $this->lastPos = $lastPos;
     }
 
     function controller(){
         switch ($this->getRequest()){
             case "GET":
-                $command = "octave --no-gui --silent  car.m $this->r;";
+                $command = "octave --no-gui --silent  car.m $this->r $this->lastPos";
                 $output = shell_exec($command);
                 $output = trim($output);
                 $outputByLine = explode(PHP_EOL, $output);
@@ -39,6 +43,7 @@ Class DampingController{
                         "wheelPos" => $value[1]
                     );
                 }
+                return $outputArray;
                 break;
             case "POST":
                 $sql = "INSERT INTO ball";

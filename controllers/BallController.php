@@ -6,27 +6,33 @@ Class BallController{
     private $result;
     private $conn;
     private $r;
+    private $rychlost;
+    private $zrychlenie;
 
     /**
      * BallController constructor.
      * @param $request
      * @param $result
-     * @param $r
      * @param $conn
+     * @param $r
+     * @param $rychlost
+     * @param $zrychlenie
      */
-    public function __construct($request, $result, $conn, $r)
+    public function __construct($request, $result, $conn, $r, $rychlost, $zrychlenie)
     {
         $this->request = $request;
         $this->result = $result;
         $this->conn = $conn;
         $this->r = $r;
+        $this->rychlost = $rychlost;
+        $this->zrychlenie = $zrychlenie;
     }
 
     function controller(){
         switch ($this->getRequest()){
             case "GET":
 
-                $command = "octave --no-gui --silent  gulicka.m $this->r;";
+                $command = "octave --no-gui --silent  gulicka.m $this->r $this->rychlost $this->zrychlenie";
                 $output = shell_exec($command);
                 $output = trim($output);
                 $outputByLine = explode(PHP_EOL, $output);
@@ -37,22 +43,18 @@ Class BallController{
                     $result = preg_replace('/\s{1,}/', ' ',  $result);
                     $value = explode(" ", $result);
                     $outputArray[] = array(
-                        "position" => $value[0],
-                        "angle" => $value[1]
+                        "speed" => $value[0],
+                        "acceleration" => $value[1]
                     );
                 }
                 return $outputArray;
                 break;
-            case "POST":
-                $sql = "INSERT INTO ball";
-                break;
-            case "PUT":
-                $sql = "UPDATE ball SET";
-                break;
-            case "DELETE":
-                $sql = "DELETE FROM ball";
-                break;
 
+            case "PUT":
+                $sql = "UPDATE statistika SET count = count + 1 WHERE name= 'ball'";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
+                break;
         }
     }
 

@@ -20,6 +20,10 @@ define("USERNAME", "Keefko");
 define("PASSWORD", "17Dany9keefo");
 define("DBNAME", "skuska");
 
+$API_KEY = 'fb5aa167-1ae0-4ead-a7bd-6fac6326ca42';
+
+
+
 
 $link = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DBNAME);
 if (!$link) {
