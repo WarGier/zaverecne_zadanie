@@ -13,7 +13,7 @@ include_once 'config.php';
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="css/styles.css"/>
     <script>
-        let lastPos = 0, lastAngle =0;
+        let speed = 0, acceleration =0;
 
         function printGraph(data) {
             $(document).ready(function() {
@@ -58,13 +58,13 @@ include_once 'config.php';
                     count++;
                     if(count === data.length){
                         clearInterval(interval);
+                        $("#button").attr("disabled", false);
                     }
                 }, 10);
             });
 
-            lastPos = data[data.length-1]['speed'];
-            lastAngle = data[data.length-1]['acceleration'];
-            console.log(lastPos + " " + lastAngle);
+            speed = data[data.length-1]['speed'];
+            acceleration = data[data.length-1]['acceleration'];
         }
     </script>
 </head>
@@ -94,6 +94,9 @@ include_once 'config.php';
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="api.php">API</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="statistics.php"><?php echo $lang['statistics'] ?></a>
             </li>
         </ul>
         <form method="get" class="form-inline my-2 my-lg-0 align-right">
@@ -137,7 +140,7 @@ include_once 'config.php';
                                     console.log(inputGraphData);
                                     $.ajax({
                                         type: 'GET',
-                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=ball&speed=' + lastPos + '&acceleration='+ lastAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=ball&speed=' + speed + '&acceleration='+ acceleration + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
                                         success: function (msg) {
                                             $("#button").attr("disabled", true);
                                             printGraph(msg);
@@ -146,7 +149,7 @@ include_once 'config.php';
 
                                     $.ajax({
                                         type: 'PUT',
-                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=ball&speed=' + lastPos + '&acceleration='+ lastAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=ball&speed=' + speed + '&acceleration='+ acceleration + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
                                         success: function (msg) {
                                         }
                                     });
@@ -172,6 +175,8 @@ include_once 'config.php';
 </div>
 
 </body>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </html>
 
 <script>

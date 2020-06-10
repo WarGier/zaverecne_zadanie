@@ -78,11 +78,13 @@ include_once 'config.php';
                     pendulum.animate('left', data[count]['position'], {
                         onChange: canvas.renderAll.bind(canvas),
                         duration: 4000,
+                        easing: fabric.util.ease.easeOutBounce
                     });
-                    var
-                    pendulum.getObjects()[1].animate('angle', ,{
+                    // var angle = data[count]['angle']*(180/Math.PI);
+                    // console.log(angle);
+                    pendulum.getObjects()[1].animate('angle', data[count]['angle'],{
                         onChange: canvas.renderAll.bind(canvas),
-                        duration: 4000
+                        duration: 4000,
                     });
                     count++;
                 }
@@ -231,7 +233,7 @@ include_once 'config.php';
     });
 
     function check(){
-        if($("#myChart").is(":hidden") && $("#myAnimation").is(":hidden")){
+        if($("#myChart").is(":hidden") && $("#c").is(":hidden")){
             $("#information").show();
         } else{
             $("#information").hide();

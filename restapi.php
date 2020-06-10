@@ -51,18 +51,17 @@ if($_GET['api_key'] == $API_KEY){
             echo json_encode($output);
             break;
     }
-
-    function sqlQuery($link,$command,$info,$bool){
-        $dateFormat = date("Y-m-d H:i:s");
-        $command = preg_replace( "/\n/", "", $command);
-
-        $stmt = $link->prepare("INSERT INTO skuskaPDF(datum_cas,prikazy,info,chyba) VALUES(?,?,?,?)");
-        $stmt->bind_param("ssss", $dateFormat, $command, $info, $bool);
-        $stmt->execute();
-        $stmt->close();
-    }
 }
 
+function sqlQuery($link,$command,$info,$bool){
+    $dateFormat = date("Y-m-d H:i:s");
+    $command = preg_replace( "/\n/", "", $command);
+
+    $stmt = $link->prepare("INSERT INTO skuskaPDF(datum_cas,prikazy,info,chyba) VALUES(?,?,?,?)");
+    $stmt->bind_param("ssss", $dateFormat, $command, $info, $bool);
+    $stmt->execute();
+    $stmt->close();
+}
 ?>
 
 

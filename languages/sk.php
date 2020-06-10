@@ -20,5 +20,29 @@
         "acceleration" => "zrýchlenie",
         "planeAngle" => "náklon lietadla",
         "flapAngle" => "náklon klapky",
-        'statistics' => "Štatistika"
+        'statistics' => "Štatistika",
+        'send' => "Poslať štatistiky na mail",
+        'ducumentation' => "Dokumentácia API",
+        'getCommand' => "Vracia výstup po zadaní príkazu.",
+        'ballDescription' => "Vracia hodnoty rýchlosti a zrýchlenia k času.",
+        'planeDescription' => "Vracia hodnoty nákolonu lietadla a jeho klapiek k času.",
+        'name' => "Meno",
+        'options' => "Možnosti",
+        'radius' => "Polomer",
+        'apiKey' => "Api kľúč",
+        'entryMail' => "Zadajte Email",
+        'dampingDescription' => "Vracia pozíciu auta a pozíciu kolesa k času.",
+        'carPos' => "pozícia auta",
+        'pendulumDescription' => "Vracia hodnoty pre pozíciu a uhol k času.",
+        'exportPDF' => 'Export API PDF',
+        'webDesign' => 'Celkový design',
+        'apiDocumentation' => 'API dokumentácia',
+        'logs' => 'Logy',
+        'sendStatisticsByMail'=> "Posielanie štatistík na E-mail",
+        'translation' => 'Anglický, Slovenský preklad',
+        'apiKeyVerification' => "API KEY verifikácia",
+        'usages' => 'Pustenia'
+
+
+
     );

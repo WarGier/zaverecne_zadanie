@@ -43,6 +43,7 @@ body{
 .container{
     padding: 16px;
     border-radius: 5px;
+    margin-bottom: 15px;
     background-color: #ffffff;
     box-shadow: 0 5px 8px -6px rgba(0, 250, 154, 0.4);
 }
@@ -153,3 +154,60 @@ body{
     color: #4a4a4a;
     margin-bottom: 24px;
 }
+
+
+
+
+
+.container2{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-left: 3em;
+    margin-right: 3em;
+    margin-bottom: 50px;
+    border: mediumspringgreen  solid 1px;
+    background-color: #F3FFF3 ;
+
+    border-radius: 5px;
+}
+
+.getHeader{
+    font-weight: bold;
+
+}
+
+.get{
+    color: white;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+    background-color: mediumspringgreen;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.docHeader{
+    margin-top: 1em;
+    text-align: center;
+}
+
+.endpoints{
+    margin-left: 3em;
+    margin-bottom: 50px;
+}
+
+.cont{
+    margin-left: 10em;
+    margin-right: 10em;
+}
+
+pre{
+    background: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #bababa;
+    padding-bottom: 20px;
+
+}
+
+
+

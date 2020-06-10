@@ -2,11 +2,7 @@
 include_once 'config.php';
 
 
-$sql = "SELECT * from statistika";
-$stmt =  $link->query($sql);
-while ($result = $stmt->fet){
 
-}
 ?>
 
 <!doctype html>
@@ -65,14 +61,32 @@ while ($result = $stmt->fet){
                 <table class="table table-stripped">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Model</th>
-                        <th>Počet spustení</th>
+                        <th><?php echo $lang['usages'] ?></th>
                     </tr>
                     </thead>
                     <tbody>
-                        
+                        <?php
+                        $sql = "SELECT * from statistika";
+                        $stmt =  $link->query($sql);
+                            while ($result = $stmt->fetch_assoc()){
+                            echo "<tr>";
+                                echo "<td>" .$result['id'] . "</td>";
+                                echo "<td>" .$result['name'] . "</td>";
+                                echo "<td>" .$result['count'] . "</td>";
+                            echo "</tr>";
+                        }?>
                     </tbody>
                 </table>
+
+                <form method="post" action="export.php" id="export-options-form">
+                    <div class="form-group mt-4">
+                        <label for="exampleFormControlTextarea1" class="subtext1"><?php echo $lang['entryMail'] ?></label>
+                        <input class="form-control" type="email" required name="emailAddress" placeholder="Email">
+                        <button type="submit" name="sendToMail" class="btn btn-custom-csv"><?php echo $lang['send'] ?></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

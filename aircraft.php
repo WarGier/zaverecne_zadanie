@@ -11,9 +11,11 @@ include_once 'config.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.0.0-beta.12/fabric.js"> </script>
     <link rel="stylesheet" href="css/styles.css"/>
+
     <script>
-        let lastPos = 0, lastAngle = 0;
+        let planeAngle = 0, flapAngle = 0;
 
         function printGraph(data) {
             $(document).ready(function() {
@@ -64,10 +66,8 @@ include_once 'config.php';
 
             });
 
-            lastPos = data[data.length-1]['planeAngle'];
-            lastAngle = data[data.length-1]['flapAngle'];
-            console.log(lastPos + " " + lastAngle);
-
+            planeAngle = data[data.length-1]['planeAngle'];
+            flapAngle = data[data.length-1]['flapAngle'];
         }
 
     </script>
@@ -99,6 +99,9 @@ include_once 'config.php';
             <li class="nav-item">
                 <a class="nav-link" href="api.php">API</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="statistics.php"><?php echo $lang['statistics'] ?></a>
+            </li>
         </ul>
         <form method="get" class="form-inline my-2 my-lg-0 align-right">
             <?php if($_SESSION['lang'] == 'sk'): ?>
@@ -129,6 +132,7 @@ include_once 'config.php';
                             <input type="checkbox" class="custom-control-input" id="animationCheckBox">
                             <label class="custom-control-label" for="animationCheckBox"><?php echo $lang['animation'] ?></label>
                         </div>
+
                         <div class="form-group mt-4">
                             <label for="exampleFormControlTextarea1" class="subtext1"><?php echo $lang['entry'] ?></label>
                             <input class="form-control" type="number" step="0.01" min="0" name="r" id="inputGraphData">
@@ -141,10 +145,17 @@ include_once 'config.php';
                                     console.log(inputGraphData);
                                     $.ajax({
                                         type: 'GET',
-                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=aircraft&plane_angle=' + lastPos + '&flap_angle=' + lastAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=aircraft&plane_angle=' + planeAngle + '&flap_angle=' + flapAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
                                         success: function (msg) {
                                             $("#button").attr("disabled", true);
                                             printGraph(msg);
+                                        }
+                                    });
+
+                                    $.ajax({
+                                        type: 'PUT',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=aircraft&plane_angle=' + planeAngle + '&flap_angle=' + flapAngle + '&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                        success: function (msg) {
                                         }
                                     });
                                 });
@@ -152,6 +163,7 @@ include_once 'config.php';
                         </script>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="col-sm">
@@ -159,8 +171,12 @@ include_once 'config.php';
                 <div class="row">
                     <div class="col text-center">
                         <span id="information" class="subtext1"><?php echo $lang['information'] ?></span>
-                        <img id="myAnimation" src="img/united-kingdom-flag-small.png">
+
+                        <div id = "planeCanvas" width="800px" height="600px"></div>
+
                         <div id="myChart" width="400" height="200"></div>
+
+
                     </div>
                 </div>
             </div>
@@ -168,21 +184,23 @@ include_once 'config.php';
     </div>
 </div>
 </body>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </html>
 
 <script>
      let animationCheckBox = document.querySelector("input[id=animationCheckBox]");
-    $("#myAnimation").hide();
+    $("#planeCanvas").hide();
     animationCheckBox.addEventListener( 'change', function() {
         if(this.checked) {
             // Checkbox is checked..
             console.log("CHECKED")
-            $("#myAnimation").show();
+            $("#planeCanvas").show();
             check();
         } else {
             // Checkbox is not checked..
             console.log("NOT CHECKED")
-            $("#myAnimation").hide();
+            $("#planeCanvas").hide();
             check();
         }
     });

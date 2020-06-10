@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="718cadb6-1606-418a-8d42-367cc368ff73" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/statistics.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aircraft.php" beforeDir="false" afterPath="$PROJECT_DIR$/aircraft.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ball.php" beforeDir="false" afterPath="$PROJECT_DIR$/ball.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/car.m" beforeDir="false" afterPath="$PROJECT_DIR$/car.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/AircraftController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AircraftController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/BallController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/BallController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/DampingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/DampingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/PendulumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PendulumController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/damping.php" beforeDir="false" afterPath="$PROJECT_DIR$/damping.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/export.php" beforeDir="false" afterPath="$PROJECT_DIR$/export.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulicka.m" beforeDir="false" afterPath="$PROJECT_DIR$/gulicka.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/languages/en.php" beforeDir="false" afterPath="$PROJECT_DIR$/languages/en.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/languages/sk.php" beforeDir="false" afterPath="$PROJECT_DIR$/languages/sk.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pendulum.php" beforeDir="false" afterPath="$PROJECT_DIR$/pendulum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/restapi.php" beforeDir="false" afterPath="$PROJECT_DIR$/restapi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statistics.php" beforeDir="false" afterPath="$PROJECT_DIR$/statistics.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +50,7 @@
       <updated>1591283505394</updated>
       <workItem from="1591283507416" duration="24797000" />
       <workItem from="1591694503762" duration="35479000" />
-      <workItem from="1591786209074" duration="15856000" />
+      <workItem from="1591786209074" duration="16113000" />
     </task>
     <servers />
   </component>

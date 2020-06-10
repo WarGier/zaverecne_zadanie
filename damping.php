@@ -11,9 +11,10 @@ include_once 'config.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.0.0-beta.12/fabric.min.js"></script>
     <link rel="stylesheet" href="css/styles.css"/>
     <script>
-        let lastPos = 0, lastAngle = 0;
+        let carPos = 0, wheelPos = 0;
 
         function printGraph(data) {
             $(document).ready(function() {
@@ -35,7 +36,7 @@ include_once 'config.php';
                 let newData = [trace1, trace2];
                 let config = {responsive: true};
                 let layout = {
-                    title: '<?php echo $lang['ball']; ?>',
+                    title: '<?php echo $lang['damping']; ?>',
                     xaxis: {
                         title: '<?php echo $lang['time']; ?>',
                     },
@@ -47,7 +48,6 @@ include_once 'config.php';
 
                 Plotly.newPlot('myChart', newData, layout, config);
                 let count = 0;
-                let it = 0;
                 let interval = setInterval(function () {
                     Plotly.extendTraces('myChart', {
                         x: [[count], [count]],
@@ -58,13 +58,45 @@ include_once 'config.php';
                     count++;
                     if(count === data.length){
                         clearInterval(interval);
+                        $("#button").attr("disabled", false);
                     }
                 }, 50);
             });
+        }
 
-            lastPos = data[data.length-1]['carPos'];
-            lastAngle = data[data.length-1]['wheelPos'];
-            console.log(lastPos + " " + lastAngle);
+        function animateDamping(data){
+            $(document).ready(function() {
+
+                var canvas = this._canvas = new fabric.Canvas('myAnimation', {width: 800, height: 400});
+
+                fabric.Image.fromURL('img/auto.png', function (img) {
+                    canvas.add(img.set({
+                        left: 0,
+                        top:carPos*100,
+                        scaleX: .50,
+                        scaleY: .50
+                    }));
+                });
+
+                fabric.Image.fromURL('img/kolesa.png', function (img) {
+                    canvas.add(img.set({
+                            left: 0,
+                            top: -5 + carPos*100,
+                            scaleX: .50,
+                            scaleY: .50
+                    }));
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        img.animate('top', +(100 * data[i]['carPos']), {
+                            duration: 2500,
+                            onChange: canvas.renderAll.bind(canvas)
+                        });
+                    }
+                });
+            });
+
+            carPos = data[data.length-1]['carPos'];
+            wheelPos = data[data.length-1]['wheelPos'];
         }
     </script>
 </head>
@@ -94,6 +126,9 @@ include_once 'config.php';
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="api.php">API</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="statistics.php"><?php echo $lang['statistics'] ?></a>
             </li>
         </ul>
         <form method="get" class="form-inline my-2 my-lg-0 align-right">
@@ -137,16 +172,17 @@ include_once 'config.php';
                                     console.log(resultDataDamping);
                                     $.ajax({
                                         type: 'GET',
-                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=damping&pos=' + lastPos +'&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=damping&pos=' + carPos +'&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
                                         success: function (msg) {
                                             $("#button").attr("disabled", true);
                                             printGraph(msg);
+                                            animateDamping(msg);
                                         }
                                     });
 
                                     $.ajax({
                                         type: 'PUT',
-                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=damping&pos=' + lastPos +'&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=damping&pos=' + carPos +'&r=' + r + '&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42',
                                         success: function (msg) {
                                         }
                                     });
@@ -162,7 +198,7 @@ include_once 'config.php';
                 <div class="row">
                     <div class="col text-center">
                         <span id="information" class="subtext1"><?php echo $lang['information'] ?></span>
-                        <img id="myAnimation" src="img/united-kingdom-flag-small.png">
+                        <canvas id="myAnimation"></canvas>
                         <div id="myChart" width="400" height="200"></div>
                     </div>
                 </div>

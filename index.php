@@ -67,9 +67,12 @@ include_once 'config.php';
                         <script>
                             $(document).ready(function(){
                                 $("#submitBtn").click(function () {
+                                    $hodnota = $('#command').val();
+                                    console.log('dasdadasdad' + $hodnota);
+                                    console.log(encodeURIComponent($hodnota));
                                     $.ajax({
                                         type: 'GET',
-                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?action=command&command=' + encodeURIComponent($('#command').val()),
+                                        url: 'http://147.175.121.210:8204/skuska/restapi.php?&action=command&api_key=fb5aa167-1ae0-4ead-a7bd-6fac6326ca42&command=' + encodeURIComponent($hodnota),
                                         success: function(msg){
                                             $('#response').html(msg);
                                         }
@@ -84,7 +87,7 @@ include_once 'config.php';
                         <span class="subtext1"><?php echo $lang['command export'] ?></span>
                         <form method="post" action="export.php" id="export-options-form">
                             <button type="submit" name="exportCSV" class="btn btn-custom-csv">CSV Export</button>
-                            <button type="submit" name="exportPDF" class="btn btn-custom-pdf">PDF Export</button>
+                            <button type="submit" name="exportPDF"  class="btn btn-custom-pdf">PDF Export</button>
                         </form>
                     </div>
                 </div>
@@ -95,6 +98,81 @@ include_once 'config.php';
                 </div>
             </div>
         </div>
+
+        <div class="container">
+            <div class="row">
+                <table class="table table-stripped">
+                    <thead>
+                        <h2>Rozdelenie prác</h2>
+                        <tr>
+                            <th>Ľuboš Trčálek</th>
+                            <th>Martin Némethy</th>
+                            <th>Peter Zbín</th>
+                            <th>Dan Kohout</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <?php echo $lang['aircraft'] ?>
+                        </td>
+                        <td>
+                            <?php echo $lang['pendulum'] ?>
+                        </td>
+                        <td>
+                            <?php echo $lang['ball'] ?>
+                        </td>
+                        <td>
+                            <?php echo $lang['damping'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            CSV export
+                        </td>
+                        <td>
+                            PDF export
+                        </td>
+                        <td>
+                            <?php echo $lang['statistics'] ?>
+                        </td>
+                        <td>
+                            REST API
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $lang['webDesign'] ?>
+                        </td>
+                        <td>
+                            <?php echo $lang['apiDocumentation'] ?>
+                        </td>
+                        <td>
+                            <?php echo $lang['logs'] ?>
+                        </td>
+                        <td>
+                            <?php echo $lang['apiKeyVerification'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $lang['sendStatisticsByMail'] ?>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            <?php echo $lang['translation'] ?>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
         <!-- **********************SCRIPTS********************** /-->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
